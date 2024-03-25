@@ -19,6 +19,9 @@
         />
       </div>
       <img v-if="image" :src="image" alt="" class="main-calc-img">
+      <div class="main-calc-logo">
+        <img src="../assets/logo.png" alt="">
+      </div>
     </div>
 
     <div class="main-field">
@@ -27,14 +30,14 @@
         <div class="main-field-data">
           <div class="main-field-mini">
             <div class="main-field-el bg-main">Толщина</div>
-            <div class="main-field-el bg-main">Кол-во</div>
+            <div class="main-field-el main-field-el-mini bg-main">Кол-во</div>
             <div class="main-field-el bg-main">Цена за 1 м² ₽</div>
-            <div class="main-field-el bg-main">Площадь кв.м</div>
+            <div class="main-field-el bg-main">Площадь м²</div>
             <div class="main-field-el bg-main">Стоимость ₽</div>
             <div class="main-field-el bg-main">Цена за ед (профиль) ₽</div>
-            <div class="main-field-el bg-main">Кол-во</div>
+            <div class="main-field-el main-field-el-mini bg-main">Кол-во</div>
             <div class="main-field-el bg-main">Итоговая стоимость ₽</div>
-            <div class="main-field-el bg-main"></div>
+            <div class="main-field-el main-field-el-mini bg-main"></div>
           </div>
         </div>
       </div>
@@ -46,18 +49,18 @@
         <div class="main-field-data">
           <div v-for="el in obj.payload" class="main-field-mini">
             <div class="main-field-el">{{ el.depth }}</div>
-            <div class="main-field-el ">
+            <div class="main-field-el main-field-el-mini">
               <input v-model="el.count" class="main-field-input" type="number">
             </div>
             <div class="main-field-el bg-price">{{ el.priceSquareMeter }}</div>
             <div class="main-field-el bg-secondary">{{ parseInt(width * height * 1000) / 1000 }}</div>
             <div class="main-field-el bg-price">{{ Math.ceil(el.priceSquareMeter * width * height * el.count) }}</div>
             <div class="main-field-el">{{ el.priceProfile }}</div>
-            <div class="main-field-el">
+            <div class="main-field-el main-field-el-mini">
               <input v-model="el.countProfile" class="main-field-input" type="number">
             </div>
             <div class="main-field-el bg-price">{{ Math.ceil(el.priceSquareMeter * width * height * el.count + el.priceProfile * el.countProfile) }}</div>
-            <div class="main-field-el"> 
+            <div class="main-field-el main-field-el-mini"> 
               <input type="checkbox" v-model="el.active" class="main-field-checkbox">
             </div>
           </div>
@@ -142,9 +145,12 @@ export default {
     margin-right: 12px;
   }
   .main-calc {
+    width: 80%;
     display: flex;
     justify-content: center;
     align-items: flex-end;
+    position: relative;
+    margin: 0 auto;
     margin-bottom: 32px;
   }
   .main-calc-flex {
@@ -157,8 +163,18 @@ export default {
     max-width: 100px;
     max-height: 100px;
   }
+  .main-calc-logo {
+    position: absolute;
+    bottom: -16px;
+    left: 12px;
+  }
+  .main-calc-logo img {
+    width: 54px;
+    height: 54px;
+  }
   .main-field {
-
+    width: 80%;
+    margin: 0 auto;
   }
   .main-field-flex {
     display: flex;
@@ -176,8 +192,11 @@ export default {
     text-align: center;
     border: 1px solid black;
     padding: 4px;
-    width: 11.11%;
+    width: 13.34%;
     min-height: 42px;
+  }
+  .main-field-el-mini {
+    width: 6.67%;
   }
   .main-field-name {
     width: 20%;

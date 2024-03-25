@@ -3,7 +3,7 @@
   <div class="result">
     <div class="result-container">
       <div class="result-left bg-secondary">
-        <div class="result-area">
+        <div class="result-area bg-price">
           <div class="result-area-el">
             <span>Ширина, м</span>
             <span>{{ store.width }}</span>
@@ -34,18 +34,18 @@
           </div>
         </div>
 
-        <div class="result-field">
+        <div class="result-field result-field-logo">
           <div class="result-field-flex">
             <div class="result-field-name bg-main">Наименование</div>
             <div class="result-field-data">
               <div class="result-field-mini">
                 <div class="result-field-el bg-main">Толщина</div>
-                <div class="result-field-el bg-main">Кол-во</div>
+                <div class="result-field-el result-field-el-mini bg-main">Кол-во</div>
                 <div class="result-field-el bg-main">Цена за 1 м² ₽</div>
-                <div class="result-field-el bg-main">Площадь кв.м</div>
+                <div class="result-field-el bg-main">Площадь м²</div>
                 <div class="result-field-el bg-main">Стоимость ₽</div>
-                <div class="result-field-el bg-main">Цена за ед (профиль) ₽</div>
-                <div class="result-field-el bg-main">Кол-во</div>
+                <div class="result-field-el bg-main">Цена за ед (профиль) </div>
+                <div class="result-field-el result-field-el-mini bg-main">Кол-во</div>
                 <div class="result-field-el bg-main">Итоговая стоимость ₽</div>
               </div>
             </div>
@@ -58,12 +58,12 @@
             <div class="result-field-data">
               <div v-for="el in obj.payload" class="result-field-mini">
                 <div class="result-field-el">{{ el.depth }}</div>
-                <div class="result-field-el">{{ el.count }} </div>
+                <div class="result-field-el result-field-el-mini">{{ el.count }} </div>
                 <div class="result-field-el bg-price">{{ el.priceSquareMeter }}</div>
                 <div class="result-field-el bg-secondary">{{ parseInt(store.width * store.height * 1000) / 1000 }}</div>
                 <div class="result-field-el bg-price">{{ Math.ceil(el.priceSquareMeter * store.width * store.height * el.count) }}</div>
                 <div class="result-field-el">{{ el.priceProfile }}</div>
-                <div class="result-field-el">{{ el.countProfile }}</div>
+                <div class="result-field-el result-field-el-mini">{{ el.countProfile }}</div>
                 <div class="result-field-el bg-price">{{ Math.ceil(el.priceSquareMeter * store.width * store.height * el.count + el.priceProfile * el.countProfile) }}</div>
               </div>
             </div>
@@ -95,10 +95,12 @@ setup() {
     width: 100vw;
   }
   .result-container {
+    width: 80%;
     display: flex;
-    margin: 8px;
     border: 2px solid black;
-
+    margin: 0 auto;
+    margin-top: 12px;
+    margin-bottom: 12px;
   }
   .result-left {
     display: flex;
@@ -110,7 +112,7 @@ setup() {
   .result-area {
     display: flex;
     justify-content: center;
-    background-color: lightgray;
+    /* background-color: lightgray; */
     border: 1px solid black;
   }
   .result-area-el {
@@ -131,6 +133,7 @@ setup() {
 
   .result-right {
     width: 80%;
+    min-height: 100%;
     display: flex;
     flex-direction: column;
   }
@@ -149,7 +152,7 @@ setup() {
   .result-header-logo {
     display: flex;
     justify-content: space-between;
-    width: 30%;
+    width: 31.4%;
   }
   .result-header-logo img {
     height: 50%;
@@ -159,14 +162,18 @@ setup() {
     width: 40%;
   }
   .result-header-site {
-    width: 30%;
+    width: 28.6%;
     text-decoration: underline;
     color: blue;
   }
   .result-field {
-
+    height: 100%;
+  }
+  .result-field-logo {
+    height: auto;
   }
   .result-field-flex {
+    /* height: 100%; */
     display: flex;
     position: relative;
   }
@@ -177,8 +184,11 @@ setup() {
     text-align: center;
     border: 1px solid black;
     padding: 4px;
-    width: 12.5%;
+    width: 14.4%;
     min-height: 40px;
+  }
+  .result-field-el-mini {
+    width: 7.2%;
   }
 
   .result-field-name {

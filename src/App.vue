@@ -27,7 +27,7 @@
     background-color: rgb(232,232,233);
   }
   .bg-secondary {
-    background-color: rgb(154,180,222);
+    background-color: rgb(200,212,234);
   }
   .bg-main {
     background-color: rgb(4,18,48);
