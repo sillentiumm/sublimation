@@ -144,7 +144,7 @@ export default {
   .main-calc {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
     margin-bottom: 32px;
   }
   .main-calc-flex {
