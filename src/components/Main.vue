@@ -31,12 +31,12 @@
           <div class="main-field-mini">
             <div class="main-field-el bg-main">Толщина</div>
             <div class="main-field-el main-field-el-mini bg-main">Кол-во</div>
-            <div class="main-field-el bg-main">Цена за 1 м² ₽</div>
+            <div class="main-field-el bg-main">Цена за 1 м², ₽</div>
             <div class="main-field-el bg-main">Площадь м²</div>
-            <div class="main-field-el bg-main">Стоимость ₽</div>
-            <div class="main-field-el bg-main">Цена за ед (профиль) ₽</div>
+            <div class="main-field-el bg-main">Стоимость, ₽</div>
+            <div class="main-field-el bg-main">Цена за ед, ₽(профиль) </div>
             <div class="main-field-el main-field-el-mini bg-main">Кол-во</div>
-            <div class="main-field-el bg-main">Итоговая стоимость ₽</div>
+            <div class="main-field-el bg-main">Итоговая стоимость, ₽</div>
             <div class="main-field-el main-field-el-mini bg-main"></div>
           </div>
         </div>
@@ -145,7 +145,7 @@ export default {
     margin-right: 12px;
   }
   .main-calc {
-    width: 80%;
+    width: 90%;
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -173,7 +173,7 @@ export default {
     height: 54px;
   }
   .main-field {
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
   }
   .main-field-flex {
@@ -216,6 +216,7 @@ export default {
   .main-field-input {
     height: 100%;
     width: 100%;
+    padding-left: 14px;
     /* margin: 8px; */
     /* padding: 8px; */
     border: none;

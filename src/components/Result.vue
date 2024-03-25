@@ -41,12 +41,12 @@
               <div class="result-field-mini">
                 <div class="result-field-el bg-main">Толщина</div>
                 <div class="result-field-el result-field-el-mini bg-main">Кол-во</div>
-                <div class="result-field-el bg-main">Цена за 1 м² ₽</div>
+                <div class="result-field-el bg-main">Цена за 1 м², ₽</div>
                 <div class="result-field-el bg-main">Площадь м²</div>
-                <div class="result-field-el bg-main">Стоимость ₽</div>
+                <div class="result-field-el bg-main">Стоимость, ₽</div>
                 <div class="result-field-el bg-main">Цена за ед (профиль) </div>
                 <div class="result-field-el result-field-el-mini bg-main">Кол-во</div>
-                <div class="result-field-el bg-main">Итоговая стоимость ₽</div>
+                <div class="result-field-el bg-main">Итоговая стоимость, ₽</div>
               </div>
             </div>
           </div>
@@ -95,7 +95,7 @@ setup() {
     width: 100vw;
   }
   .result-container {
-    width: 80%;
+    width: 90%;
     display: flex;
     border: 2px solid black;
     margin: 0 auto;
@@ -132,7 +132,7 @@ setup() {
   }
 
   .result-right {
-    width: 80%;
+    width: 90%;
     min-height: 100%;
     display: flex;
     flex-direction: column;
