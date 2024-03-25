@@ -10,10 +10,6 @@
         <label for="inputWidth">Ширина</label>
         <input v-model="width" id="inputWidth" type="number">
       </div>
-      <!-- <div class="main-calc-flex">
-        <label for="inputCount">Колличество</label>
-        <input v-model="count" id="inputCount" type="number">
-      </div> -->
       <div class="main-calc-flex">
         <input 
           type="file" 
@@ -27,18 +23,18 @@
 
     <div class="main-field">
       <div class="main-field-flex">
-        <div class="main-field-name">Name</div>
+        <div class="main-field-name bg-main">Наименование</div>
         <div class="main-field-data">
           <div class="main-field-mini">
-            <div class="main-field-el">Толщина</div>
-            <div class="main-field-el">Кол-во</div>
-            <div class="main-field-el">Цена за 1 кв.м руб</div>
-            <div class="main-field-el">Площадь кв.м</div>
-            <div class="main-field-el">Стоимость</div>
-            <div class="main-field-el">Цена за ед (профиль)</div>
-            <div class="main-field-el">Кол-во</div>
-            <div class="main-field-el">Итоговая стоимость</div>
-            <div class="main-field-el"></div>
+            <div class="main-field-el bg-main">Толщина</div>
+            <div class="main-field-el bg-main">Кол-во</div>
+            <div class="main-field-el bg-main">Цена за 1 кв.м руб</div>
+            <div class="main-field-el bg-main">Площадь кв.м</div>
+            <div class="main-field-el bg-main">Стоимость</div>
+            <div class="main-field-el bg-main">Цена за ед (профиль)</div>
+            <div class="main-field-el bg-main">Кол-во</div>
+            <div class="main-field-el bg-main">Итоговая стоимость</div>
+            <div class="main-field-el bg-main"></div>
           </div>
         </div>
       </div>
@@ -53,14 +49,14 @@
             <div class="main-field-el ">
               <input v-model="el.count" class="main-field-input" type="number">
             </div>
-            <div class="main-field-el bg-gray">{{ el.priceSquareMeter }}</div>
-            <div class="main-field-el bg-green">{{ width * height }}</div>
-            <div class="main-field-el">{{ el.priceSquareMeter * width * height * el.count }}</div>
-            <div class="main-field-el">{{ el.priceProfile }} </div>
+            <div class="main-field-el bg-price">{{ el.priceSquareMeter }} ₽</div>
+            <div class="main-field-el bg-secondary">{{ parseInt(width * height * 1000) / 1000 }}</div>
+            <div class="main-field-el bg-price">{{ Math.ceil(el.priceSquareMeter * width * height * el.count) }} ₽</div>
+            <div class="main-field-el">{{ el.priceProfile }} ₽ </div>
             <div class="main-field-el">
               <input v-model="el.countProfile" class="main-field-input" type="number">
             </div>
-            <div class="main-field-el bg-green">{{ el.priceSquareMeter * width * height * el.count + el.priceProfile * el.countProfile}}</div>
+            <div class="main-field-el bg-price">{{ Math.ceil(el.priceSquareMeter * width * height * el.count + el.priceProfile * el.countProfile) }} ₽</div>
             <div class="main-field-el"> 
               <input type="checkbox" v-model="el.active" class="main-field-checkbox">
             </div>
@@ -70,7 +66,7 @@
     </div>
 
     <div class="main-result">
-      <button @click="goToResult" class="main-result-btn">do it</button>
+      <button @click="goToResult" class="main-result-btn">Сформировать КП</button>
     </div>
       
   </div>
@@ -78,7 +74,7 @@
 
 <script>
 
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import { useStore } from "../stores/store.js"
 import { useRouter } from 'vue-router'
 
@@ -91,7 +87,6 @@ export default {
     const data = reactive([...store.data])
     const width = ref(store.width)
     const height = ref(store.height)
-    // const count = ref(0)
     const result = reactive([])
     const image = ref(null);
 
@@ -113,7 +108,6 @@ export default {
       store.result = result
       store.width = width
       store.height = height
-      // store.count = count
       router.push({ name: 'result' })
     }
 
@@ -127,6 +121,12 @@ export default {
       reader.readAsDataURL(file);
     };
 
+    onMounted(() => {
+      console.log(Math.floor(2.12512))
+      console.log((parseInt(1234.2 * 100)) / 100)
+      // parseInt(n * 100)) / 100
+    })
+
     return {store, data, width, height, result, goToResult, downloadImg, image }
   }
 }
@@ -134,9 +134,12 @@ export default {
 </script>
 
 <style scoped>
+/* 4 18 48 */
   .main {
     margin-top: 32px;
     margin-bottom: 32px;
+    margin-left: 12px;
+    margin-right: 12px;
   }
   .main-calc {
     display: flex;
@@ -148,6 +151,7 @@ export default {
     display: flex;
     flex-direction: column;
     margin-right: 24px;
+    font-size: 18px;
   }
   .main-calc-img {
     max-width: 100px;
@@ -162,12 +166,14 @@ export default {
   .main-field-mini {
     display: flex;
     justify-content: center;
+    flex: 1 1 0px;
     width: 100%;
   }
   .main-field-el {
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
     border: 1px solid black;
     padding: 4px;
     width: 11.11%;
@@ -184,6 +190,9 @@ export default {
   }
   .main-field-data {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0px;
   }
   .main-field-input {
     height: 100%;
@@ -191,9 +200,11 @@ export default {
     /* margin: 8px; */
     /* padding: 8px; */
     border: none;
+    /* width: 32px; */
+    text-align: center;
   }
   .main-field-input:focus {
-    outline: none
+    outline: none;
   }
   .main-field-checkbox {
     display: flex;

@@ -25,7 +25,7 @@ export const useStore = defineStore('counter', () => {
       {depth: '16 мм', count:1, priceSquareMeter: 12900, priceProfile: 1000, countProfile: 1, active: false}
     ]
     },
-    { name: "Стекло (НЕПОНЯТНО)", payload: [
+    { name: "Стекло Cristal Vision (Европа)", payload: [
       {depth: '4 мм', count:1, priceSquareMeter: 12700, priceProfile: 1000, countProfile: 1, active: false},
       {depth: '5 мм', count:1, priceSquareMeter: 13800, priceProfile: 1000, countProfile: 1, active: false},
       {depth: '6 мм', count:1, priceSquareMeter: 15200, priceProfile: 1000, countProfile: 1, active: false},

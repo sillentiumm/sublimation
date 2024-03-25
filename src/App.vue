@@ -16,11 +16,21 @@
     margin: 0;  
     padding: 0;
     box-sizing: border-box;
+    font-family: "Tilda";
   }
-  .bg-gray {
-    background-color: lightgray;
+  @font-face {
+    font-family: "Tilda";
+    src: url(./assets/fonts/TildaSans-VF.woff) format("woff"),
+      url(./assets/fonts/TildaSans-VF.woff2) format("woff2"),
   }
-  .bg-green {
-    background-color: #ADDFAD;
+  .bg-price {
+    background-color: rgb(232,232,233);
+  }
+  .bg-secondary {
+    background-color: lightcyan;
+  }
+  .bg-main {
+    background-color: rgb(4,18,48);
+    color: #fff;
   }
 </style>

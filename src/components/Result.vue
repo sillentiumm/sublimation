@@ -21,7 +21,7 @@
       <div class="result-right">
         <div class="result-header">
           <div class="result-header-logo">
-            <div>logo</div>
+            <img src="../assets/monoart-logo.svg" alt="">
             <div>monoart</div>
           </div>
           <div class="result-header-descr">
@@ -36,17 +36,17 @@
 
         <div class="result-field">
           <div class="result-field-flex">
-            <div class="result-field-name">Name</div>
+            <div class="result-field-name bg-main">Наименование</div>
             <div class="result-field-data">
               <div class="result-field-mini">
-                <div class="result-field-el">Толщина</div>
-                <div class="result-field-el">Кол-во</div>
-                <div class="result-field-el">Цена за 1 кв.м руб</div>
-                <div class="result-field-el">Площадь кв.м</div>
-                <div class="result-field-el">Стоимость</div>
-                <div class="result-field-el">Цена за ед (профиль)</div>
-                <div class="result-field-el">Кол-во</div>
-                <div class="result-field-el">Итоговая стоимость</div>
+                <div class="result-field-el bg-main">Толщина</div>
+                <div class="result-field-el bg-main">Кол-во</div>
+                <div class="result-field-el bg-main">Цена за 1 кв.м руб</div>
+                <div class="result-field-el bg-main">Площадь кв.м</div>
+                <div class="result-field-el bg-main">Стоимость</div>
+                <div class="result-field-el bg-main">Цена за ед (профиль)</div>
+                <div class="result-field-el bg-main">Кол-во</div>
+                <div class="result-field-el bg-main">Итоговая стоимость</div>
               </div>
             </div>
           </div>
@@ -59,12 +59,12 @@
               <div v-for="el in obj.payload" class="result-field-mini">
                 <div class="result-field-el">{{ el.depth }}</div>
                 <div class="result-field-el">{{ el.count }} </div>
-                <div class="result-field-el bg-gray">{{ el.priceSquareMeter }}</div>
-                <div class="result-field-el bg-green">{{ store.width * store.height }}</div>
-                <div class="result-field-el">{{ el.priceSquareMeter * store.width * store.height * el.count }}</div>
-                <div class="result-field-el">{{ el.priceProfile }} </div>
+                <div class="result-field-el bg-price">{{ el.priceSquareMeter }} ₽</div>
+                <div class="result-field-el bg-secondary">{{ parseInt(store.width * store.height * 1000) / 1000 }}</div>
+                <div class="result-field-el bg-price">{{ Math.ceil(el.priceSquareMeter * store.width * store.height * el.count) }} ₽</div>
+                <div class="result-field-el">{{ el.priceProfile }} ₽</div>
                 <div class="result-field-el">{{ el.countProfile }}</div>
-                <div class="result-field-el bg-green">{{ el.priceSquareMeter * store.width * store.height * el.count + el.priceProfile * el.countProfile}}</div>
+                <div class="result-field-el bg-price">{{ Math.ceil(el.priceSquareMeter * store.width * store.height * el.count + el.priceProfile * el.countProfile) }} ₽</div>
               </div>
             </div>
           </div>
@@ -152,6 +152,10 @@ setup() {
     justify-content: space-between;
     width: 30%;
   }
+  .result-header-logo img {
+    height: 50%;
+    padding-left: 4px;
+  }
   .result-header-descr {
     width: 40%;
     font-size: 18px;
@@ -172,6 +176,7 @@ setup() {
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
     border: 1px solid black;
     padding: 4px;
     width: 12.5%;
