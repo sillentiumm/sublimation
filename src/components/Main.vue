@@ -28,12 +28,12 @@
           <div class="main-field-mini">
             <div class="main-field-el bg-main">Толщина</div>
             <div class="main-field-el bg-main">Кол-во</div>
-            <div class="main-field-el bg-main">Цена за 1 кв.м руб</div>
+            <div class="main-field-el bg-main">Цена за 1 м² ₽</div>
             <div class="main-field-el bg-main">Площадь кв.м</div>
-            <div class="main-field-el bg-main">Стоимость</div>
-            <div class="main-field-el bg-main">Цена за ед (профиль)</div>
+            <div class="main-field-el bg-main">Стоимость ₽</div>
+            <div class="main-field-el bg-main">Цена за ед (профиль) ₽</div>
             <div class="main-field-el bg-main">Кол-во</div>
-            <div class="main-field-el bg-main">Итоговая стоимость</div>
+            <div class="main-field-el bg-main">Итоговая стоимость ₽</div>
             <div class="main-field-el bg-main"></div>
           </div>
         </div>
@@ -49,14 +49,14 @@
             <div class="main-field-el ">
               <input v-model="el.count" class="main-field-input" type="number">
             </div>
-            <div class="main-field-el bg-price">{{ el.priceSquareMeter }} ₽</div>
+            <div class="main-field-el bg-price">{{ el.priceSquareMeter }}</div>
             <div class="main-field-el bg-secondary">{{ parseInt(width * height * 1000) / 1000 }}</div>
-            <div class="main-field-el bg-price">{{ Math.ceil(el.priceSquareMeter * width * height * el.count) }} ₽</div>
-            <div class="main-field-el">{{ el.priceProfile }} ₽ </div>
+            <div class="main-field-el bg-price">{{ Math.ceil(el.priceSquareMeter * width * height * el.count) }}</div>
+            <div class="main-field-el">{{ el.priceProfile }}</div>
             <div class="main-field-el">
               <input v-model="el.countProfile" class="main-field-input" type="number">
             </div>
-            <div class="main-field-el bg-price">{{ Math.ceil(el.priceSquareMeter * width * height * el.count + el.priceProfile * el.countProfile) }} ₽</div>
+            <div class="main-field-el bg-price">{{ Math.ceil(el.priceSquareMeter * width * height * el.count + el.priceProfile * el.countProfile) }}</div>
             <div class="main-field-el"> 
               <input type="checkbox" v-model="el.active" class="main-field-checkbox">
             </div>
@@ -221,6 +221,7 @@ export default {
   .main-result-btn {
     width: 200px;
     height: 40px;
+    font-size: 18px;
   }
 
 

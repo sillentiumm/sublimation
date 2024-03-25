@@ -2,7 +2,7 @@
 <template>
   <div class="result">
     <div class="result-container">
-      <div class="result-left">
+      <div class="result-left bg-secondary">
         <div class="result-area">
           <div class="result-area-el">
             <span>Ширина, м</span>
@@ -41,12 +41,12 @@
               <div class="result-field-mini">
                 <div class="result-field-el bg-main">Толщина</div>
                 <div class="result-field-el bg-main">Кол-во</div>
-                <div class="result-field-el bg-main">Цена за 1 кв.м руб</div>
+                <div class="result-field-el bg-main">Цена за 1 м² ₽</div>
                 <div class="result-field-el bg-main">Площадь кв.м</div>
-                <div class="result-field-el bg-main">Стоимость</div>
-                <div class="result-field-el bg-main">Цена за ед (профиль)</div>
+                <div class="result-field-el bg-main">Стоимость ₽</div>
+                <div class="result-field-el bg-main">Цена за ед (профиль) ₽</div>
                 <div class="result-field-el bg-main">Кол-во</div>
-                <div class="result-field-el bg-main">Итоговая стоимость</div>
+                <div class="result-field-el bg-main">Итоговая стоимость ₽</div>
               </div>
             </div>
           </div>
@@ -59,12 +59,12 @@
               <div v-for="el in obj.payload" class="result-field-mini">
                 <div class="result-field-el">{{ el.depth }}</div>
                 <div class="result-field-el">{{ el.count }} </div>
-                <div class="result-field-el bg-price">{{ el.priceSquareMeter }} ₽</div>
+                <div class="result-field-el bg-price">{{ el.priceSquareMeter }}</div>
                 <div class="result-field-el bg-secondary">{{ parseInt(store.width * store.height * 1000) / 1000 }}</div>
-                <div class="result-field-el bg-price">{{ Math.ceil(el.priceSquareMeter * store.width * store.height * el.count) }} ₽</div>
-                <div class="result-field-el">{{ el.priceProfile }} ₽</div>
+                <div class="result-field-el bg-price">{{ Math.ceil(el.priceSquareMeter * store.width * store.height * el.count) }}</div>
+                <div class="result-field-el">{{ el.priceProfile }}</div>
                 <div class="result-field-el">{{ el.countProfile }}</div>
-                <div class="result-field-el bg-price">{{ Math.ceil(el.priceSquareMeter * store.width * store.height * el.count + el.priceProfile * el.countProfile) }} ₽</div>
+                <div class="result-field-el bg-price">{{ Math.ceil(el.priceSquareMeter * store.width * store.height * el.count + el.priceProfile * el.countProfile) }}</div>
               </div>
             </div>
           </div>
@@ -106,7 +106,6 @@ setup() {
     align-items: center;
     width: 20%;
     min-height: 100px;
-    background-color: lightcyan;
   }
   .result-area {
     display: flex;
@@ -158,7 +157,6 @@ setup() {
   }
   .result-header-descr {
     width: 40%;
-    font-size: 18px;
   }
   .result-header-site {
     width: 30%;
