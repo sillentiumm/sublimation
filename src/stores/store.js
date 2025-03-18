@@ -80,10 +80,11 @@ export const useStore = defineStore('counter', () => {
   ]
 
   const result = reactive([])
+  const file = reactive([])
   const width = ref(0)
   const height = ref(0)
   // const count = ref(0)
   const picture = ref(null)
 
-  return { data, result, width, height, picture }
+  return { data, result, width, height, picture, file }
 })

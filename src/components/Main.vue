@@ -29,14 +29,14 @@
         <div class="main-field-name bg-main">Наименование</div>
         <div class="main-field-data">
           <div class="main-field-mini">
-            <div class="main-field-el bg-main">Толщина</div>
+            <div class="main-field-el main-field-el-mini bg-main">Толщина</div>
             <div class="main-field-el main-field-el-mini bg-main">Кол-во</div>
             <div class="main-field-el bg-main">Цена за 1 м², ₽</div>
-            <div class="main-field-el bg-main">Площадь м²</div>
-            <div class="main-field-el bg-main">Стоимость, ₽</div>
-            <div class="main-field-el bg-main">Цена за ед, ₽(профиль) </div>
-            <div class="main-field-el main-field-el-mini bg-main">Кол-во</div>
-            <div class="main-field-el bg-main">Итоговая стоимость, ₽</div>
+            <div class="main-field-el main-field-el-mini bg-main">Площадь м²</div>
+            <div class="main-field-el main-field-el-mini bg-main">Стоимость, ₽</div>
+            <!-- <div class="main-field-el bg-main">Цена за ед, ₽(профиль) </div> -->
+            <!-- <div class="main-field-el main-field-el-mini bg-main">Кол-во</div> -->
+            <!-- <div class="main-field-el bg-main">Итоговая стоимость, ₽</div> -->
             <div class="main-field-el main-field-el-mini bg-main"></div>
           </div>
         </div>
@@ -48,18 +48,18 @@
         <div class="main-field-name">{{ obj.name }} </div>
         <div class="main-field-data">
           <div v-for="el in obj.payload" class="main-field-mini">
-            <div class="main-field-el">{{ el.depth }}</div>
+            <div class="main-field-el main-field-el-mini">{{ el.depth }}</div>
             <div class="main-field-el main-field-el-mini">
               <input v-model="el.count" class="main-field-input" type="number">
             </div>
-            <div class="main-field-el bg-price">{{ el.priceSquareMeter }}</div>
-            <div class="main-field-el bg-secondary">{{ parseInt(width * height * 1000) / 1000 }}</div>
-            <div class="main-field-el bg-price">{{ Math.ceil(el.priceSquareMeter * width * height * el.count) }}</div>
-            <div class="main-field-el">{{ el.priceProfile }}</div>
-            <div class="main-field-el main-field-el-mini">
+            <div class="main-field-el  bg-price">{{ el.priceSquareMeter }}</div>
+            <div class="main-field-el main-field-el-mini bg-secondary">{{ parseInt(width * height * 1000) / 1000 }}</div>
+            <div class="main-field-el main-field-el-mini bg-price">{{ Math.ceil(el.priceSquareMeter * width * height * el.count) }}</div>
+            <!-- <div class="main-field-el">{{ el.priceProfile }}</div> -->
+            <!-- <div class="main-field-el main-field-el-mini">
               <input v-model="el.countProfile" class="main-field-input" type="number">
-            </div>
-            <div class="main-field-el bg-price">{{ Math.ceil(el.priceSquareMeter * width * height * el.count + el.priceProfile * el.countProfile) }}</div>
+            </div> -->
+            <!-- <div class="main-field-el bg-price">{{ Math.ceil(el.priceSquareMeter * width * height * el.count + el.priceProfile * el.countProfile) }}</div> -->
             <div class="main-field-el main-field-el-mini"> 
               <input type="checkbox" v-model="el.active" class="main-field-checkbox">
             </div>
@@ -69,6 +69,7 @@
     </div>
 
     <div class="main-result">
+      <button @click="addToCheck" class="main-result-btn" style="margin-right: 16px;">Добавить в счет</button>
       <button @click="goToResult" class="main-result-btn">Сформировать КП</button>
     </div>
       
@@ -92,25 +93,65 @@ export default {
     const height = ref(store.height)
     const result = reactive([])
     const image = ref(null);
+    let picture = null
+    let globalResult = null
+    const file = reactive([])
 
-    function goToResult() {
+    function addToCheck() {
+      const file = {
+        width: '',
+        height: '',
+        picture: '',
+        data: {
+          name: '',
+          payload: ''
+        }
+      }
       data.forEach(el => {
         el.payload.forEach(miniEl => {
           if(miniEl.active == true) {
+            // console.log(88, miniEl)
             const idx = result.findIndex(res => res.name == el.name)
             if(idx !== -1) {
               result[idx].payload.push(miniEl)
             }
             else {
-              result.push({name: el.name, payload: [miniEl]})
+              // const datafile = {name: el.name, width: width.value, height: height.value, payload: [miniEl]}
+              const datafile = {name: el.name, payload: [miniEl]}
+              result.push(datafile)
             }
           }
         })
       })
 
-      store.result = result
-      store.width = width
-      store.height = height
+      globalResult = { width: width.value, height: height.value, data: [...result], picture: picture }
+
+      // globalResult = [...result]
+      result.length = 0
+      store.result = [...store.result, globalResult]
+      console.log(store.result)
+
+      resetData()
+    }
+
+    function resetData() {
+      data.forEach(el => {
+        el.payload.forEach(miniEl => {
+          width.value = 0 
+          height.value = 0
+          if(picture) picture = null
+          if(image.value) image.value = null
+          if(miniEl.active) miniEl.active = !miniEl.active
+          // if(miniEl.count !== 1) miniEl.count = 1
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        })
+      })
+    }
+
+    function goToResult() {
       router.push({ name: 'result' })
     }
 
@@ -119,25 +160,18 @@ export default {
       const reader = new FileReader();
       reader.onload = (e) => {
         image.value = e.target.result;
-        store.picture = image.value
+        picture = image.value
       };
       reader.readAsDataURL(file);
     };
 
-    onMounted(() => {
-      console.log(Math.floor(2.12512))
-      console.log((parseInt(1234.2 * 100)) / 100)
-      // parseInt(n * 100)) / 100
-    })
-
-    return {store, data, width, height, result, goToResult, downloadImg, image }
+    return {store, data, width, height, result, addToCheck, goToResult, downloadImg, image }
   }
 }
 
 </script>
 
 <style scoped>
-/* 4 18 48 */
   .main {
     margin-top: 32px;
     margin-bottom: 32px;
@@ -145,10 +179,12 @@ export default {
     margin-right: 12px;
   }
   .main-calc {
-    width: 90%;
+    /* width: 90%; */
+    width: 860px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: flex-end;
+    /* align-items: center; */
     position: relative;
     margin: 0 auto;
     margin-bottom: 32px;
@@ -174,16 +210,16 @@ export default {
   }
   .main-field {
     width: 90%;
+    width: 860px;
     margin: 0 auto;
   }
   .main-field-flex {
     display: flex;
+    justify-content: center;
   }
   .main-field-mini {
     display: flex;
-    justify-content: center;
     flex: 1 1 0px;
-    width: 100%;
   }
   .main-field-el {
     display: flex;
@@ -192,35 +228,32 @@ export default {
     text-align: center;
     border: 1px solid black;
     padding: 4px;
-    width: 13.34%;
+    width: 32%;
     min-height: 42px;
   }
   .main-field-el-mini {
-    width: 6.67%;
+    width: 17%;
   }
   .main-field-name {
     width: 20%;
+    width: 40%;
     display: flex;
     justify-content: start;
     align-items: center;
     padding: 8px;
-    /* width: 20%; */
     border: 1px solid black;
   }
   .main-field-data {
-    width: 100%;
+    width: 30%;
+    width: 60%;
     display: flex;
     flex-direction: column;
-    flex: 1 1 0px;
   }
   .main-field-input {
     height: 100%;
     width: 100%;
     padding-left: 14px;
-    /* margin: 8px; */
-    /* padding: 8px; */
     border: none;
-    /* width: 32px; */
     text-align: center;
   }
   .main-field-input:focus {
